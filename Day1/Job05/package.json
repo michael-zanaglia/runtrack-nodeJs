@@ -1,0 +1,15 @@
+{
+  "name": "job05",
+  "version": "1.0.0",
+  "main": "job05.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node job05.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}

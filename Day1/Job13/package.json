@@ -1,0 +1,17 @@
+{
+  "name": "job13",
+  "version": "1.0.0",
+  "main": "job13.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node job13.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "url": "^0.11.3"
+  }
+}
