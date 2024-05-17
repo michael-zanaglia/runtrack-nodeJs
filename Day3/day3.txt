@@ -1,0 +1,92 @@
+Job1 : MongoDB Community Server Download // Si il y a une erreur c'est probable du au pare-feu => ajouter l'application mongodb et ajouter un port
+
+Job2 : show dbs
+	admin   40.00 KiB
+	config  12.00 KiB
+	local   40.00 KiB
+
+Job3 : > use shop
+	< switched to db shop
+       > db.product.insertOne({name:"chaussure", description:"une paire de chaussure", price:35, quantity:120})
+	< {
+  		acknowledged: true,
+  		insertedId: ObjectId('6646025a4e0e9c20ddda3583')
+	  }
+
+Job4 : > db.product.insertMany([{name:"Pantalon noir", description:"un pantalon noir", price:14.99, quantity:12}], {name:"chaussettes", 	 description:"chaussettes cool!", price:6, quantity:6})
+	< {
+  		acknowledged: true,
+  		insertedIds: {
+    			'0': ObjectId('664603fe4e0e9c20ddda3584')
+  	  	}
+	   }
+
+Job5 : > db.category.insertMany([{hauts:["veste", "pull", "t-shirt"]}, {bas:["calecons", "pantalon"]}, {chaussure:["sneakers", "talons"]}])
+       < {
+  		acknowledged: true,
+  		insertedIds: {
+    			'0': ObjectId('664607ed4e0e9c20ddda3585'),
+    			'1': ObjectId('664607ed4e0e9c20ddda3586'),
+    			'2': ObjectId('664607ed4e0e9c20ddda3587')
+  		}
+	  }
+
+Job6 : > show collections
+	< category
+	< product
+
+Job7 : > db.category.find()
+< {
+  	_id: ObjectId('6646095e4e0e9c20ddda3588'),
+  	hauts: [
+    	'veste',
+    	'pull',
+    	't-shirt'
+  	]
+  }
+  {
+ 	 _id: ObjectId('6646095e4e0e9c20ddda3589'),
+ 	 bas: [
+    	'calecons',
+    	'pantalon'
+  	]
+  }
+  {
+  	_id: ObjectId('6646095e4e0e9c20ddda358a'),
+  	chaussure: [
+    	'sneakers',
+    	'talons'
+  	]
+  }
+
+Job8 : db.product.find().limit(2)
+
+
+Job9 : db.product.find().sort({price : 1})
+
+
+Job10 : db.product.find().sort({price : -1})
+
+Job11 : db.product.find( {price : { $gt : 5}, quantity : { $lt : 100}}).sort({ price : 1 })
+
+Job12 : db.product.find( {price : { $gt : 14.99}, quantity : { $gt : 100}}).sort({ price : 1 })
+
+Job13 : db.product.find({}, { "_id": 0 }) // montre tous sauf le champs _id.
+
+Job14 : db.product.find({_id : ObjectId('664602404e0e9c20ddda3582')})
+
+Job15 : db.category.updateOne({name : "bébé"}, {$set : {name : "Vetement pour enfants"}})
+
+Job16 : db.product.updateMany({}, {$set : {category_id : ObjectId('6646095e4e0e9c20ddda358a') }}) + db.product.aggregate([{$match : { category_id: ObjectId('6646095e4e0e9c20ddda358a')}}, { $lookup : {from : "category", localField : "category_id", foreignField : "_id", as : "category" }}])
+
+Job17 : db.category.aggregate([{$match : {champsAMatch : {$exists:true}}}, {$project : {champsAMatch : 1, nombreArticles : { $cond : { if : {$isArray : "$champsAMatch"}, then : {$size : "$champsAMatch" }, else : 1}}}}, {$sort : {nombreArticles : 1}}, {$limit : 1} ])
+
+
+
+en plus : 
+
+Compter element d'une liste : db.maCollection.aggregate([{$match : {monChamps : {$exists:true}}}, {$project : {VARAIBLE : {$size : `$monChamps`}}}])
+Changer le nom d'un champs : db.category.updateMany({},{$rename : {chaussure : "name"}})
+
+
+
