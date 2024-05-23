@@ -1,0 +1,26 @@
+db.createCollection("student", 
+{validator : 
+	{$jsonSchema : {
+		bsonType : "object", 
+		required:['id', 'lastname', 'firstname','students_number', 'year_id'], 
+		properties : {
+			id : { bsonType : "int" }, 
+			firstname : {bsonType : "string"}, 
+			firstname : { bsonType : "string"}, 
+			students_number : { bsonType : "int"}, 
+			year_id : { bsonType : "int"} 
+			}
+		}
+	}
+})
+
+db.createCollection("year", {validator : 
+	{$jsonSchema : {
+		bsonType : "object", 
+		required:['year_id'], 
+		properties : {
+			year : { bsonType : "int" }
+			}
+		}
+	}
+})
